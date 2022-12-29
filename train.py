@@ -22,6 +22,7 @@ from utils import (
     load_checkpoint,
 )
 from loss import YoloLoss
+import logging
 
 seed = 123
 torch.manual_seed(seed)
@@ -52,7 +53,7 @@ class Compose(object):
 
 
 transform = Compose([transforms.Resize((448, 448)), transforms.ToTensor(),])
-
+logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 def get_losses(model, loader, loss_fn):
     losses = []
     model.eval()
@@ -123,7 +124,8 @@ def main():
         drop_last=True,
     )
 
-    for epoch in range(EPOCHS):
+    for epoch in range(1, 1+EPOCHS):
+        logging.info(f"############ Epoch {epoch}###############:")
         # for x, y in train_loader:
         #    x = x.to(DEVICE)
         #    for idx in range(8):
@@ -139,11 +141,12 @@ def main():
         )
         loss = get_losses(model, test_loader, loss_fn)
         print(f"Test mean sum loss is {loss}")
+        logging.info(f"test loss is {loss}")
         mean_avg_prec = mean_average_precision(
             pred_boxes, target_boxes, iou_threshold=0.5, box_format="midpoint"
         )
         print(f"Test mAP: {mean_avg_prec}")
-
+        logging.info(f"test mAP is {mean_avg_prec}")
         #if mean_avg_prec > 0.9:
         #    checkpoint = {
         #        "state_dict": model.state_dict(),
