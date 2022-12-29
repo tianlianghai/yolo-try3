@@ -128,10 +128,10 @@ class VOCDataset(Dataset):
             # To remove these, loss implementation also has to be modified.
             for k in range(B):
                 s = 5 * k
-                target[j, i, s  :s+2] = xy_normalized
-                target[j, i, s+2:s+4] = wh
-                target[j, i, s+4    ] = 1.0
-            target[j, i, 5*B + label] = 1.0
+                target[j, i, C+s  :C+s+2] = xy_normalized
+                target[j, i, C+s+2:C+s+4] = wh
+                target[j, i, C+s+4    ] = 1.0
+            target[j, i, label] = 1.0
 
         return target
 
