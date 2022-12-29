@@ -36,9 +36,8 @@ mv 2007* 2012* old_txt_files/
 
 python generate_csv.py
 
-mkdir data
-mkdir data/images
-mkdir data/labels
+mkdir images
+mkdir labels
 
 cp VOCdevkit/*.jpg data/images/
 cp VOCdevkit/VOC2007/labels/*.txt data/labels/
