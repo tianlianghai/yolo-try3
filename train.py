@@ -53,7 +53,7 @@ class Compose(object):
 
 
 transform = Compose([transforms.Resize((448, 448)), transforms.ToTensor(),])
-logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG, filename="yolo.log")
 def get_losses(model, loader, loss_fn):
     losses = []
     model.eval()
